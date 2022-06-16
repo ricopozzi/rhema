@@ -1,13 +1,16 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
-import { Home } from "../../pages/Home";
-import { Events } from "../../pages/Events";
+import { Home } from "../pages/Home";
+import { Events } from "../pages/Events";
+import { Profile } from "../pages/Profile";
 import { ThemeProvider } from "@shopify/restyle";
-import Theme from "../../styles/light";
+import Theme from "../styles/light";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { Dimensions } from "react-native";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Octicons } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
+import { Rhema } from "../pages/Rhema";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -81,16 +84,32 @@ export function Navigation() {
             options={{
               tabBarIcon: ({ focused }) => (
                 //@ts-ignore
-                <AntDesign
-                  name='home'
+                <Entypo
+                  name='feather'
                   size={32}
-                  color={focused ? "#F6C056" : "black"}
+                  color={focused ? "#33dd3c" : "black"}
                 />
               ),
               tabBarShowLabel: false,
             }}
-            name='Home3'
-            component={Home}
+            name='Rhema'
+            component={Rhema}
+          />
+
+          <Tab.Screen
+            options={{
+              tabBarIcon: ({ focused }) => (
+                //@ts-ignore
+                <Octicons
+                  name='person'
+                  size={32}
+                  color={focused ? "#f66156" : "black"}
+                />
+              ),
+              tabBarShowLabel: false,
+            }}
+            name='Profile'
+            component={Profile}
           />
         </Tab.Navigator>
       </ThemeProvider>

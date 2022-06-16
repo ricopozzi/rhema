@@ -1,5 +1,5 @@
 import { View, TouchableOpacity, Text } from "react-native";
-import Box from "../Box";
+import Box from "../components/Box";
 import { Dimensions } from "react-native";
 
 const { width, height } = Dimensions.get("screen");

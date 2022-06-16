@@ -9,7 +9,9 @@ const pallete = {
     blue: "#55A4ED",
     bgSoftYellow: '#FBF9F4',
     grayBackground:'#dee2e6',
-    darkGray: '#495057'
+    darkGray: '#495057',
+    grayText: '#838B90',
+    mainRed: '#f66156'
 
 }
 
@@ -23,7 +25,9 @@ const theme = createTheme({
         bgSoftYellow: pallete.bgSoftYellow,
         softGray: pallete.grayPrimary,
         grayBg: pallete.grayBackground,
-        darkGray: pallete.darkGray
+        darkGray: pallete.darkGray,
+        grayText: pallete.grayText,
+        mainRed: pallete.mainRed
     },
     spacing:{
         "0": "0",

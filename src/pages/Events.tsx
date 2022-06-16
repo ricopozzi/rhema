@@ -1,5 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import { StatusBar, Dimensions, TouchableOpacity } from "react-native";
+import {
+  StatusBar,
+  Dimensions,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import { supabase } from "../lib/supabase";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Header } from "../components/Header/Header";
@@ -17,6 +22,7 @@ const { width, height } = Dimensions.get("screen");
 export const Events = () => {
   const [bigOpen, setBigOpen] = useState(false);
   const [smallOpen, setSmallOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   //@ts-ignore
   const t = useTheme<Theme>(theme);
@@ -28,6 +34,9 @@ export const Events = () => {
       shortDescription: "xxx",
       imageurl:
         "https://i.picsum.photos/id/450/200/200.jpg?hmac=DluUYibC-zBoNHLOHsO6aHIuiA3pDhholFjiR5KcwR0",
+      adress: "xxx",
+      date: "xxx",
+      time: "xxx",
     },
   ]);
   const [selectedEvent, setSelectedEvent] = useState([
@@ -73,6 +82,7 @@ export const Events = () => {
       });
       //@ts-ignore
       setSmallEvents(sorted);
+      setIsLoading(false);
     })();
   }, []);
 
@@ -86,88 +96,95 @@ export const Events = () => {
       >
         <Header pageTitle='Eventos' />
         <StatusBar barStyle='dark-content' />
-        <ScrollView
-          style={{
-            backgroundColor: "#fafafa",
-            flex: 1,
-          }}
-          contentContainerStyle={{
-            paddingBottom: 100,
-            minHeight: height,
-          }}
-        >
+        {isLoading ? (
           <Box
-            width={width / 1.07}
-            height={height / 2.4}
-            backgroundColor={"white"}
-            alignSelf='center'
-            borderRadius={"md"}
-            //@ts-ignore
-            key={`key=${bigEvent[0].id}`}
-            padding='xm'
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
+            <ActivityIndicator size='large' />
+          </Box>
+        ) : (
+          <ScrollView
             style={{
-              shadowColor: "#696969",
-              shadowOffset: {
-                width: 0,
-                height: 1,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 6.84,
-
-              elevation: 5,
+              backgroundColor: "#fafafa",
+              flex: 1,
+            }}
+            contentContainerStyle={{
+              paddingBottom: 100,
+              minHeight: height,
             }}
           >
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => setBigOpen(true)}
-            >
-              <Box
-                style={{
-                  position: "absolute",
-                  top: 20,
-                  left: 10,
-                  width: 80,
-                  height: 32,
-                  zIndex: 9999,
-                  backgroundColor: t.colors.yellow,
-                  borderRadius: 6,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Text
-                  style={{
-                    color: "#fff",
-                  }}
-                  fontWeight='600'
-                >
-                  NOVO
-                </Text>
-              </Box>
-              <Image
-                source={{ uri: bigEvent[0].imageurl }}
-                style={{
-                  width: "100%",
-                  height: width / 2.25,
-                  alignSelf: "center",
-                  borderRadius: 10,
-                }}
-                from={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ type: "timing" }}
-                delay={300}
-                resizeMode={"cover"}
-              />
+            <Box
+              width={width / 1.07}
+              height={height / 2.4}
+              backgroundColor={"white"}
+              alignSelf='center'
+              borderRadius={"md"}
+              //@ts-ignore
+              key={`key=${bigEvent[0].id}`}
+              padding='xm'
+              style={{
+                shadowColor: "#696969",
+                shadowOffset: {
+                  width: 0,
+                  height: 1,
+                },
+                shadowOpacity: 0.25,
+                shadowRadius: 6.84,
 
-              <Text mt='xs' paddingHorizontal={"xm"} variant={"pageTitle"}>
-                {bigEvent[0].title}
-              </Text>
-              <Text paddingHorizontal={"xm"} mt='xs'>
-                {bigEvent[0].shortDescription}
-              </Text>
-            </TouchableOpacity>
-          </Box>
-          {/* <ModalMainEvent
+                elevation: 5,
+              }}
+            >
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => setBigOpen(true)}
+              >
+                <Box
+                  style={{
+                    position: "absolute",
+                    top: 20,
+                    left: 10,
+                    width: 80,
+                    height: 32,
+                    zIndex: 9999,
+                    backgroundColor: t.colors.yellow,
+                    borderRadius: 6,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#fff",
+                    }}
+                    fontWeight='600'
+                  >
+                    NOVO
+                  </Text>
+                </Box>
+                <Image
+                  source={{ uri: bigEvent[0].imageurl }}
+                  style={{
+                    width: "100%",
+                    height: width / 2.25,
+                    alignSelf: "center",
+                    borderRadius: 10,
+                  }}
+                  from={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ type: "timing" }}
+                  delay={300}
+                  resizeMode={"cover"}
+                />
+
+                <Text mt='xs' paddingHorizontal={"xm"} variant={"pageTitle"}>
+                  {bigEvent[0].title}
+                </Text>
+                <Text paddingHorizontal={"xm"} mt='xs'>
+                  {bigEvent[0].shortDescription}
+                </Text>
+              </TouchableOpacity>
+            </Box>
+            {/* <ModalMainEvent
             mainEventUrl={item.imageurl}
             isVisible={bigEventOpen}
             mainEventText={item.description}
@@ -175,87 +192,88 @@ export const Events = () => {
             handleClose={() => setBigEventOpen(!bigEventOpen)}
           /> */}
 
-          <Text variant={"medium"} paddingHorizontal={"md"} mt={"xl"}>
-            Programação semanal
-          </Text>
+            <Text variant={"medium"} paddingHorizontal={"md"} mt={"xl"}>
+              Programação semanal
+            </Text>
 
-          <Box
-            width={width}
-            minHeight={height / 10}
-            paddingHorizontal='md'
-            justifyContent={"center"}
-            alignItems='center'
-            mt='xm'
-          >
-            {smallEvents.map((item: any, index) => {
-              return (
-                <TouchableOpacity
-                  onPress={() => {
-                    setSmallOpen(true);
-                    return setSelectedEvent(item);
-                  }}
-                  key={index}
-                >
-                  <Box
-                    width={width / 1.07}
-                    minHeight={height / 10}
-                    backgroundColor={"softGray"}
-                    mt={"lg"}
-                    borderRadius='lg'
-                    paddingHorizontal={"lg"}
-                    paddingVertical='xs'
-                    flexDirection={"row"}
+            <Box
+              width={width}
+              minHeight={height / 10}
+              paddingHorizontal='md'
+              justifyContent={"center"}
+              alignItems='center'
+              mt='xm'
+            >
+              {smallEvents.map((item: any, index) => {
+                return (
+                  <TouchableOpacity
+                    onPress={() => {
+                      setSmallOpen(true);
+                      return setSelectedEvent(item);
+                    }}
+                    key={index}
                   >
-                    <Box>
-                      <Image
-                        source={{ uri: item.imageurl }}
-                        style={{
-                          height: 55,
-                          width: 55,
-                          borderRadius: 99,
-                        }}
-                      />
-                      <Text
+                    <Box
+                      width={width / 1.07}
+                      minHeight={height / 10}
+                      backgroundColor={"softGray"}
+                      mt={"lg"}
+                      borderRadius='lg'
+                      paddingHorizontal={"lg"}
+                      paddingVertical='xs'
+                      flexDirection={"row"}
+                    >
+                      <Box>
+                        <Image
+                          source={{ uri: item.imageurl }}
+                          style={{
+                            height: 55,
+                            width: 55,
+                            borderRadius: 99,
+                          }}
+                        />
+                        <Text
+                          style={{
+                            alignSelf: "center",
+                          }}
+                          fontSize={12}
+                          fontWeight={"800"}
+                          color={"darkGray"}
+                          mt={"xs"}
+                        >
+                          {item.dayoftheweek.split("-")[0]}
+                        </Text>
+                      </Box>
+
+                      <Box flex={1} px={"xs"} justifyContent='space-evenly'>
+                        <Text textAlign={"left"} fontWeight={"600"}>
+                          {item.title}
+                        </Text>
+                        <Text fontSize={14} mt={"xs"}>
+                          {item.shortdescription}
+                        </Text>
+                      </Box>
+                      {/*@ts-ignore */}
+                      <Ionicons
                         style={{
                           alignSelf: "center",
                         }}
-                        fontSize={12}
-                        fontWeight={"800"}
-                        color={"darkGray"}
-                        mt={"xs"}
-                      >
-                        {item.dayoftheweek.split("-")[0]}
-                      </Text>
+                        name='chevron-forward'
+                        size={24}
+                        color='black'
+                      />
                     </Box>
-
-                    <Box flex={1} px={"xs"} justifyContent='space-evenly'>
-                      <Text textAlign={"left"} fontWeight={"600"}>
-                        {item.title}
-                      </Text>
-                      <Text fontSize={14} mt={"xs"}>
-                        {item.shortdescription}
-                      </Text>
-                    </Box>
-                    {/*@ts-ignore */}
-                    <Ionicons
-                      style={{
-                        alignSelf: "center",
-                      }}
-                      name='chevron-forward'
-                      size={24}
-                      color='black'
-                    />
-                  </Box>
-                </TouchableOpacity>
-              );
-            })}
-          </Box>
-        </ScrollView>
+                  </TouchableOpacity>
+                );
+              })}
+            </Box>
+          </ScrollView>
+        )}
       </SafeAreaView>
       <BigEventSheet
         isOpen={bigOpen}
         handleOpenClose={() => setBigOpen(false)}
-        eventProps={bigEvent}
+        eventProps={bigEvent[0]}
       />
       <EventSheet
         isOpen={smallOpen}

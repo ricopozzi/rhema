@@ -46,10 +46,10 @@ export const BigEventSheet = ({
           color={"black"}
           mt='xm'
         >
-          {eventProps[0].title}
+          {eventProps.title}
         </Text>
         <Text mt='xl' paddingHorizontal={"md"} variant='medium'>
-          {eventProps[0].description}
+          {eventProps.description}
         </Text>
         <Box
           mt='xl'
@@ -59,7 +59,7 @@ export const BigEventSheet = ({
         >
           <Text>Endereço:</Text>
           <Text paddingHorizontal={"md"} variant='medium'>
-            {eventProps[0].adress}
+            {eventProps.adress}
           </Text>
         </Box>
 
@@ -71,7 +71,7 @@ export const BigEventSheet = ({
         >
           <Text>Data:</Text>
           <Text paddingHorizontal={"md"} variant='medium'>
-            {eventProps[0].date}
+            {eventProps.date}
           </Text>
         </Box>
         <Box
@@ -82,7 +82,7 @@ export const BigEventSheet = ({
         >
           <Text>Hora:</Text>
           <Text paddingHorizontal={"md"} variant='medium'>
-            {eventProps[0].time}
+            {eventProps.time}
           </Text>
         </Box>
       </Box>
