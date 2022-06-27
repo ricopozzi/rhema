@@ -1,4 +1,4 @@
-import { createTheme } from "@shopify/restyle";
+import { createTheme} from "@shopify/restyle";
 
 const pallete = {
     white: '#ffffff',
@@ -52,6 +52,7 @@ const theme = createTheme({
         defaults: {
            color: 'black',
            fontSize: 16,
+           fontFamily:'Poppins_400Regular'
         },
         medium:{
             color: 'black',
@@ -60,7 +61,23 @@ const theme = createTheme({
         pageTitle: {
             color: 'black',
             fontSize:25,
+        },
+        italic: {
+            fontFamily: 'SourceSerifPro_300Light_Italic',
+        },
+        bold: {
+            fontFamily: 'Poppins_600SemiBold'
+        },
+        regularItalic: {
+            fontFamily: 'Poppins_400Regular_Italic'
+        },
+        serif:{
+            fontFamily: 'SourceSerifPro_300Light'
+        },
+        serifRegular: {
+            fontFamily: 'SourceSerifPro_400Regular'
         }
+
     }
     
 })

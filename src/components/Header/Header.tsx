@@ -20,13 +20,13 @@ export function Header({ pageTitle }: HeaderProps) {
       justifyContent='space-between'
       alignItems={"center"}
     >
-      <Text fontWeight={"bold"} variant='pageTitle'>
+      <Text variant='serifRegular' fontSize={24}>
         {pageTitle}
       </Text>
       <Image
         style={{
           width: width / 4,
-          height: height / 14,
+          height: height / 15,
         }}
         resizeMode='contain'
         source={require("../../../assets/rhemadark.png")}

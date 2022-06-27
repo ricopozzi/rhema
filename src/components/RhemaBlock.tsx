@@ -14,6 +14,7 @@ interface RhemaBoxProps {
   children?: any;
   pass?: boolean;
   passContent?: string;
+  funcOnPress?: any;
 }
 
 export const RhemaBox = ({
@@ -23,6 +24,7 @@ export const RhemaBox = ({
   icon,
   pass = false,
   passContent,
+  funcOnPress,
 }: RhemaBoxProps) => {
   const theme = useTheme<Theme>();
 
@@ -44,40 +46,56 @@ export const RhemaBox = ({
         alignItems='center'
       >
         {icon}
-        <Text variant={"medium"} fontWeight='600' color='darkGray' ml='md'>
-          {title}
-        </Text>
+        <Box width={width}>
+          <Text variant={"medium"} fontWeight='600' color='darkGray' ml='md'>
+            {title}
+          </Text>
+        </Box>
       </Box>
+      <Text mt='xm' lineHeight={23} variant={"serif"}>
+        {pass
+          ? "Dedique alguns minutos para ouvir a palavra de Deus e você ficará perto Dele. "
+          : "Citação para edificar a sua fé."}
+      </Text>
       <Box
         style={{
           height: "70%",
-          backgroundColor: bgColor,
         }}
-        borderRadius='md'
+        borderRadius='sm'
         padding='md'
         justifyContent={"space-between"}
       >
-        <Box flexDirection={"row"} alignItems='flex-end'>
-          <Text variant={"medium"} fontWeight='500' color='mainBackground'>
+        <Box flexDirection={"row"} alignItems='center'>
+          <Text fontSize={16} fontWeight='500' color='darkGray'>
             {pass ? "Passagem:" : "Autor:"}
           </Text>
-          <Text fontWeight='600' color='mainBackground' ml='xs' fontSize={16}>
+          <Text variant={"bold"} color='darkGray' ml='xs' fontSize={16}>
             {pass ? passContent : author}
           </Text>
         </Box>
         <Pressable
           style={{
-            width: "60%",
+            width: "40%",
             height: "50%",
-            backgroundColor: theme.colors.mainBackground,
+            backgroundColor: theme.colors.darkGray,
             alignSelf: "center",
-            borderRadius: 8,
+            borderRadius: 20,
             justifyContent: "center",
             alignItems: "center",
+            shadowColor: theme.colors.darkGray,
+            shadowOffset: {
+              width: 0,
+              height: 0,
+            },
+            shadowOpacity: 0.34,
+            shadowRadius: 11.27,
+
+            elevation: 10,
           }}
+          onPress={funcOnPress}
         >
-          <Text variant='medium' fontWeight={"600"} color='darkGray'>
-            Ver
+          <Text variant='bold' color='mainBackground'>
+            ver
           </Text>
         </Pressable>
       </Box>

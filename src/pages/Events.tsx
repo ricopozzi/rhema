@@ -12,10 +12,11 @@ import { useTheme } from "@shopify/restyle";
 import theme, { Theme } from "../styles/light";
 import Box from "../components/Box";
 import Text from "../components/Text";
-import { Image, ScrollView } from "moti";
+import { Image, MotiImage, ScrollView } from "moti";
 import { Ionicons } from "@expo/vector-icons";
 import { BigEventSheet } from "../components/BigEventSheet";
 import { EventSheet } from "../components/EventSheet";
+import { Loading } from "../components/Loading";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -47,10 +48,6 @@ export const Events = () => {
         "https://i.picsum.photos/id/450/200/200.jpg?hmac=DluUYibC-zBoNHLOHsO6aHIuiA3pDhholFjiR5KcwR0",
     },
   ]);
-
-  const handleEventSelect = () => {
-    return setSelectedEvent(smallEvents[0]);
-  };
 
   useEffect(() => {
     (async () => {
@@ -97,11 +94,7 @@ export const Events = () => {
         <Header pageTitle='Eventos' />
         <StatusBar barStyle='dark-content' />
         {isLoading ? (
-          <Box
-            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-          >
-            <ActivityIndicator size='large' />
-          </Box>
+          <Loading />
         ) : (
           <ScrollView
             style={{
@@ -109,13 +102,14 @@ export const Events = () => {
               flex: 1,
             }}
             contentContainerStyle={{
-              paddingBottom: 100,
+              paddingBottom: 20,
               minHeight: height,
             }}
+            bounces={false}
           >
             <Box
-              width={width / 1.07}
-              height={height / 2.4}
+              width={width / 1.2}
+              minHeight={height / 2.6}
               backgroundColor={"white"}
               alignSelf='center'
               borderRadius={"md"}
@@ -138,7 +132,7 @@ export const Events = () => {
                 activeOpacity={0.8}
                 onPress={() => setBigOpen(true)}
               >
-                <Box
+                {/* <Box
                   style={{
                     position: "absolute",
                     top: 20,
@@ -160,23 +154,25 @@ export const Events = () => {
                   >
                     NOVO
                   </Text>
-                </Box>
-                <Image
+                </Box> */}
+                <MotiImage
                   source={{ uri: bigEvent[0].imageurl }}
                   style={{
-                    width: "100%",
+                    width: width / 1.3,
                     height: width / 2.25,
                     alignSelf: "center",
-                    borderRadius: 10,
+                    borderRadius: 12,
                   }}
-                  from={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ type: "timing" }}
-                  delay={300}
-                  resizeMode={"cover"}
                 />
 
-                <Text mt='xs' paddingHorizontal={"xm"} variant={"pageTitle"}>
+                <Text
+                  mt='xs'
+                  paddingHorizontal={"xm"}
+                  fontWeight='700'
+                  color='darkGray'
+                  variant={"bold"}
+                  fontSize={22}
+                >
                   {bigEvent[0].title}
                 </Text>
                 <Text paddingHorizontal={"xm"} mt='xs'>
@@ -216,12 +212,23 @@ export const Events = () => {
                     <Box
                       width={width / 1.07}
                       minHeight={height / 10}
-                      backgroundColor={"softGray"}
+                      backgroundColor={"white"}
                       mt={"lg"}
-                      borderRadius='lg'
+                      borderRadius='md'
                       paddingHorizontal={"lg"}
                       paddingVertical='xs'
                       flexDirection={"row"}
+                      style={{
+                        shadowColor: "#696969",
+                        shadowOffset: {
+                          width: 0,
+                          height: 1,
+                        },
+                        shadowOpacity: 0.25,
+                        shadowRadius: 6.84,
+
+                        elevation: 5,
+                      }}
                     >
                       <Box>
                         <Image
@@ -246,7 +253,11 @@ export const Events = () => {
                       </Box>
 
                       <Box flex={1} px={"xs"} justifyContent='space-evenly'>
-                        <Text textAlign={"left"} fontWeight={"600"}>
+                        <Text
+                          variant={"bold"}
+                          textAlign={"left"}
+                          fontWeight={"600"}
+                        >
                           {item.title}
                         </Text>
                         <Text fontSize={14} mt={"xs"}>

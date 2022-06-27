@@ -17,6 +17,8 @@ import { supabase } from "../lib/supabase";
 import { Ionicons } from "@expo/vector-icons";
 import { MotiView } from "moti";
 import { HomeLoader } from "../components/HomeLoader";
+import { registerForPushNotification } from "../lib/RegisterPushNotifications";
+import { Loading } from "../components/Loading";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -48,6 +50,7 @@ export const Home = () => {
       setPictures(data[0].pictures);
       //await registerForPushNotification();
       setIsLoading(false);
+      await registerForPushNotification();
     })();
   }, []);
 
@@ -81,7 +84,7 @@ export const Home = () => {
         // >
         //   <ActivityIndicator size='large' />
         // </Box>
-        <HomeLoader />
+        <Loading />
       ) : (
         <ScrollView
           style={{
@@ -89,7 +92,7 @@ export const Home = () => {
             flex: 1,
           }}
           contentContainerStyle={{
-            paddingBottom: 90,
+            paddingBottom: 0,
           }}
         >
           <MotiView
@@ -133,7 +136,7 @@ export const Home = () => {
               color={t.colors.yellow}
               style={{ marginRight: 10 }}
             />
-            <Text variant='medium' fontWeight={"700"}>
+            <Text variant='bold' fontSize={24} fontWeight={"700"}>
               {textData.title}
             </Text>
           </Box>
@@ -147,7 +150,12 @@ export const Home = () => {
             padding='md'
             borderRadius={"sm"}
           >
-            <Text textAlign={"left"} fontSize={16} lineHeight={21}>
+            <Text
+              color='darkGray'
+              textAlign={"left"}
+              fontSize={16}
+              lineHeight={24}
+            >
               {textData.mainText}
             </Text>
           </Box>
