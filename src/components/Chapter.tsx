@@ -46,8 +46,8 @@ export const Chapter = ({ number, abbrev, closeSheet }: ChapterProps) => {
       }}
     >
       <Box
-        width={70}
-        height={70}
+        width={65}
+        height={65}
         borderRadius='md'
         borderWidth={1}
         justifyContent='center'

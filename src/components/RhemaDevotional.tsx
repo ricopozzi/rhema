@@ -111,7 +111,7 @@ export const RhemaDevotional = ({
             style={{
               width: width,
               height: height / 1.7,
-              backgroundColor: theme.colors.mainBackground,
+              backgroundColor: theme.colors.softGray,
               position: "absolute",
               bottom: 0,
               borderTopEndRadius: 22,

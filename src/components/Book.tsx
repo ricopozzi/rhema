@@ -27,7 +27,18 @@ export const Book = ({
   const theme = useTheme<Theme>();
 
   return (
-    <Pressable onPress={handleOpenSheet}>
+    <Pressable
+      style={{
+        shadowColor: "#ececec",
+        shadowOffset: {
+          width: -1,
+          height: -4,
+        },
+        shadowOpacity: 0.7,
+        shadowRadius: 3,
+      }}
+      onPress={handleOpenSheet}
+    >
       <MotiView
         style={{
           width: width / 1.2,
@@ -37,15 +48,12 @@ export const Book = ({
           alignSelf: "center",
           marginTop: 10,
           justifyContent: "center",
-          shadowColor: "#696969",
+          shadowColor: "#afafaf",
           shadowOffset: {
-            width: 0,
-            height: 1,
+            width: 1,
+            height: 4,
           },
-          shadowOpacity: 0.25,
-          shadowRadius: 3.84,
-
-          elevation: 5,
+          shadowOpacity: 0.35,
         }}
       >
         <Box position={"absolute"} ml='xm'>

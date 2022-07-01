@@ -79,7 +79,7 @@ export const RhemaBox = ({
             height: "50%",
             backgroundColor: theme.colors.darkGray,
             alignSelf: "center",
-            borderRadius: 20,
+            borderRadius: theme.borderRadii.sm,
             justifyContent: "center",
             alignItems: "center",
             shadowColor: theme.colors.darkGray,

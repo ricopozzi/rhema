@@ -69,7 +69,7 @@ export function Bible() {
           backgroundColor: theme.colors.mainBackground,
         }}
       >
-        <Header pageTitle='Bibilia' />
+        <Header pageTitle='Bíblia' />
         {isLoading ? (
           <Loading />
         ) : (

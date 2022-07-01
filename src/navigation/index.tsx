@@ -18,6 +18,7 @@ import { AuthStack } from "./AuthStack";
 import { BibleStack } from "./BibleStack";
 import { Feather } from "@expo/vector-icons";
 import { RhemaStack } from "./RhemaStack";
+import { NoInternetScreen } from "../components/NoInternet";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -45,109 +46,117 @@ export function Navigation() {
   }, []);
 
   return (
-    <NavigationContainer>
-      <ThemeProvider theme={Theme}>
-        {/**@ts-ignore */}
-        {!session ? (
-          <AuthStack />
-        ) : (
-          //@ts-ignore
-          <Tab.Navigator
-            screenOptions={{
-              headerShown: false,
-              tabBarStyle: {
-                shadowColor: "#d4d4d4",
-                shadowOffset: {
-                  width: 0,
-                  height: -2,
-                },
-                shadowOpacity: 0.7,
-                shadowRadius: 10.84,
-              },
-            }}
-            initialRouteName='Home'
-          >
-            <Tab.Screen
-              options={{
-                tabBarIcon: ({ focused }) => (
-                  //@ts-ignore
-                  <MaterialIcons
-                    name='event-note'
-                    size={32}
-                    color={focused ? "#5661f6" : "black"}
-                  />
-                ),
-                tabBarShowLabel: false,
-              }}
-              name='Events'
-              component={Events}
-            />
-            <Tab.Screen
-              name='bible'
-              component={BibleStack}
-              options={{
-                headerShown: false,
-                tabBarIcon: ({ focused }) => (
-                  //@ts-ignore
-                  <Feather
-                    name='book'
-                    size={32}
-                    color={focused ? "#b6b6b6" : "black"}
-                  />
-                ),
-                tabBarShowLabel: false,
-              }}
-            />
-            <Tab.Screen
-              options={{
-                tabBarIcon: ({ focused }) => (
-                  //@ts-ignore
-                  <AntDesign
-                    name='home'
-                    size={32}
-                    color={focused ? "#F6C056" : "black"}
-                  />
-                ),
-                tabBarShowLabel: false,
-              }}
-              name='Home'
-              component={Home}
-            />
+    <>
+      {isConnected ? (
+        <NavigationContainer>
+          <ThemeProvider theme={Theme}>
+            {/**@ts-ignore */}
+            {!session ? (
+              <AuthStack />
+            ) : (
+              //@ts-ignore
+              <Tab.Navigator
+                screenOptions={{
+                  headerShown: false,
+                  tabBarStyle: {
+                    // shadowColor: "#d4d4d4",
+                    // shadowOffset: {
+                    //   width: 0,
+                    //   height: -2,
+                    // },
+                    // shadowOpacity: 0.7,
+                    // shadowRadius: 10.84,
+                    backgroundColor: "#fafafa",
+                    borderTopWidth: 0,
+                  },
+                }}
+                initialRouteName='Home'
+              >
+                <Tab.Screen
+                  options={{
+                    tabBarIcon: ({ focused }) => (
+                      //@ts-ignore
+                      <MaterialIcons
+                        name='event-note'
+                        size={32}
+                        color={focused ? "#5661f6" : "black"}
+                      />
+                    ),
+                    tabBarShowLabel: false,
+                  }}
+                  name='Events'
+                  component={Events}
+                />
+                <Tab.Screen
+                  name='bible'
+                  component={BibleStack}
+                  options={{
+                    headerShown: false,
+                    tabBarIcon: ({ focused }) => (
+                      //@ts-ignore
+                      <Feather
+                        name='book'
+                        size={32}
+                        color={focused ? "#b6b6b6" : "black"}
+                      />
+                    ),
+                    tabBarShowLabel: false,
+                  }}
+                />
+                <Tab.Screen
+                  options={{
+                    tabBarIcon: ({ focused }) => (
+                      //@ts-ignore
+                      <AntDesign
+                        name='home'
+                        size={32}
+                        color={focused ? "#F6C056" : "black"}
+                      />
+                    ),
+                    tabBarShowLabel: false,
+                  }}
+                  name='Home'
+                  component={Home}
+                />
 
-            <Tab.Screen
-              options={{
-                tabBarIcon: ({ focused }) => (
-                  //@ts-ignore
-                  <Entypo
-                    name='feather'
-                    size={32}
-                    color={focused ? "#33dd3c" : "black"}
-                  />
-                ),
-                tabBarShowLabel: false,
-              }}
-              name='Rhema'
-              component={RhemaStack}
-            />
+                <Tab.Screen
+                  options={{
+                    tabBarIcon: ({ focused }) => (
+                      //@ts-ignore
+                      <Entypo
+                        name='feather'
+                        size={32}
+                        color={focused ? "#33dd3c" : "black"}
+                      />
+                    ),
+                    tabBarShowLabel: false,
+                  }}
+                  name='Rhema'
+                  component={RhemaStack}
+                />
 
-            <Tab.Screen
-              options={{
-                tabBarIcon: ({ focused }) => (
-                  //@ts-ignore
-                  <Octicons
-                    name='person'
-                    size={32}
-                    color={focused ? "#f66156" : "black"}
-                  />
-                ),
-                tabBarShowLabel: false,
-              }}
-              name='Profile'
-              component={Profile}
-            />
-          </Tab.Navigator>
-        )}
-      </ThemeProvider>
-    </NavigationContainer>
+                <Tab.Screen
+                  options={{
+                    tabBarIcon: ({ focused }) => (
+                      //@ts-ignore
+                      <Octicons
+                        name='person'
+                        size={32}
+                        color={focused ? "#f66156" : "black"}
+                      />
+                    ),
+                    tabBarShowLabel: false,
+                  }}
+                  name='Profile'
+                  component={Profile}
+                />
+              </Tab.Navigator>
+            )}
+          </ThemeProvider>
+        </NavigationContainer>
+      ) : (
+        <NoInternetScreen />
+      )}
+    </>
   );
 }

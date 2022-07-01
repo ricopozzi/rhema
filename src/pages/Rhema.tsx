@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   SafeAreaView,
   Dimensions,
@@ -22,6 +22,7 @@ import { Loading } from "../components/Loading";
 import { useNavigation } from "@react-navigation/native";
 import { MotiPressable } from "moti/interactions";
 import { useQuery, useQueries, useIsFetching } from "react-query";
+import { notificationContext } from "../lib/notificationContext";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -44,6 +45,8 @@ export const Rhema = () => {
   const [buttonShown, setButtonShown] = useState<any>("flex");
   const [isLoading, setIsLoading] = useState(true);
   const navigation = useNavigation();
+
+  const { handleFetchNotifications } = useContext(notificationContext);
 
   const { data: quotes, isFetched: quoteFetching } = useQuery(
     "quotes",
@@ -78,6 +81,7 @@ export const Rhema = () => {
     if (quoteFetching && devotionalFetching === true) {
       setIsLoading(false);
     }
+    handleFetchNotifications();
   }, [quoteFetching, devotionalFetching]);
 
   return (

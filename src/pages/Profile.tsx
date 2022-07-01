@@ -14,6 +14,7 @@ export const Profile: React.FC = () => {
   const theme = useTheme<Theme>();
   const [isLoadingProfile, setIsLoadingProfile] = useState(false);
   const [profile, setProfile] = useState<any>("Seu nome");
+  const user = supabase.auth.user();
 
   const handleSignOut = async () => {
     const {} = await supabase.auth.signOut();

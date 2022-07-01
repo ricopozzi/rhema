@@ -1,37 +1,37 @@
-import { SafeAreaView, Dimensions, FlatList } from "react-native";
+import { SafeAreaView, FlatList } from "react-native";
 import { Notification } from "../components/Notification";
 import { Theme } from "../styles/light";
 import { useTheme } from "@shopify/restyle";
 import Text from "../components/Text";
 import { Feather } from "@expo/vector-icons";
 import Box from "../components/Box";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { Separator } from "../components/atoms/Separator";
 import { MotiView } from "moti";
-import { QueryCache, useQuery } from "react-query";
-import { supabase } from "../lib/supabase";
-import { useEffect, useMemo, useState } from "react";
+import { useContext, useState } from "react";
 import { Loading } from "../components/Loading";
+import { notificationContext } from "../lib/notificationContext";
 
 export const NotificationsScreen = () => {
   const theme = useTheme<Theme>();
   const navigation = useNavigation();
-  const [notificationsData, setNotificationsData] = useState();
 
-  const { data: notifications, isFetched } = useQuery(
-    "notifications",
-    async (): Promise<any> => {
-      const { data: notificationsData, error: notificationsError } =
-        await supabase
-          .from("notifications")
-          .select("title, description, id, created_at")
-          .order("id", { ascending: false })
-          .limit(10);
-      return notificationsData;
-    }
-  );
+  const { notification } = useContext(notificationContext);
 
-  const memoizedNotifications = useMemo(() => notifications, [notifications]);
+  // const { data: notifications, isFetched } = useQuery(
+  //   "notifications",
+  //   async (): Promise<any> => {
+  //     const { data: notificationsData, error: notificationsError } =
+  //       await supabase
+  //         .from("notifications")
+  //         .select("title, description, id, created_at")
+  //         .order("id", { ascending: false })
+  //         .limit(10);
+  //     return notificationsData;
+  //   }
+  // );
+
+  // const memoizedNotifications = useMemo(() => notifications, [notifications]);
 
   const renderItem = ({ item, index }: any) => {
     return (
@@ -65,51 +65,47 @@ export const NotificationsScreen = () => {
         backgroundColor: theme.colors.mainBackground,
       }}
     >
-      {isFetched ? (
-        <>
-          <Box
-            flexDirection={"row"}
-            justifyContent='space-between'
-            alignItems={"center"}
-            paddingHorizontal='md'
-          >
-            {/**@ts-ignore */}
-            <Feather
-              name='chevron-left'
-              size={30}
-              color={theme.colors.darkGray}
-              style={{}}
-              onPress={() => navigation.goBack()}
-            />
-
-            <Text
-              variant={"bold"}
-              fontSize={19}
-              textAlign={"center"}
-              marginVertical='lg'
-            >
-              Últimos avisos
-            </Text>
-            <Box />
-          </Box>
-          <FlatList
-            data={memoizedNotifications}
-            keyExtractor={({ item, index }) => `key-${Math.random()}`}
-            //@ts-ignore
-            renderItem={renderItem}
-            ItemSeparatorComponent={Separator}
-            style={{
-              flex: 1,
-            }}
-            contentContainerStyle={{
-              paddingBottom: 20,
-              justifyContent: "center",
-            }}
+      <>
+        <Box
+          flexDirection={"row"}
+          justifyContent='space-between'
+          alignItems={"center"}
+          paddingHorizontal='md'
+        >
+          {/**@ts-ignore */}
+          <Feather
+            name='chevron-left'
+            size={30}
+            color={theme.colors.darkGray}
+            style={{}}
+            onPress={() => navigation.goBack()}
           />
-        </>
-      ) : (
-        <Loading />
-      )}
+
+          <Text
+            variant={"bold"}
+            fontSize={19}
+            textAlign={"center"}
+            marginVertical='lg'
+          >
+            Últimos avisos
+          </Text>
+          <Box />
+        </Box>
+        <FlatList
+          data={notification}
+          keyExtractor={({ item, index }) => `key-${Math.random()}`}
+          //@ts-ignore
+          renderItem={renderItem}
+          ItemSeparatorComponent={Separator}
+          style={{
+            flex: 1,
+          }}
+          contentContainerStyle={{
+            paddingBottom: 20,
+            justifyContent: "center",
+          }}
+        />
+      </>
     </SafeAreaView>
   );
 };

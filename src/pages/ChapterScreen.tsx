@@ -107,7 +107,7 @@ export const ChapterScreen = () => {
                   variant='regularItalic'
                   color='grayText'
                   mr='xs'
-                  fontSize={19}
+                  fontSize={15}
                 >
                   {chapterData.book.name}
                 </Text>
@@ -121,12 +121,14 @@ export const ChapterScreen = () => {
               <Box
                 justifyContent={"center"}
                 alignItems='center'
-                width={width / 6}
-                height={35}
-                borderRadius='sm'
-                backgroundColor={"grayText"}
+                width={65}
+                height={30}
+                backgroundColor={"grayBg"}
+                style={{
+                  borderRadius: 5,
+                }}
               >
-                <Text fontWeight={"600"} color='grayBg' letterSpacing={2}>
+                <Text variant={"bold"} color='darkGray' letterSpacing={1.3}>
                   NVI
                 </Text>
               </Box>

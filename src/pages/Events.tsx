@@ -63,7 +63,7 @@ export const Events = () => {
       const { data: littleEvents } = await supabase
         .from("smallevents")
         .select(
-          "title, dayoftheweek, shortdescription, imageurl, dayasnumber, adress, date, time"
+          "title, dayoftheweek, shortdescription, imageurl, dayasnumber, adress, time"
         );
 
       //@ts-ignore
@@ -132,29 +132,6 @@ export const Events = () => {
                 activeOpacity={0.8}
                 onPress={() => setBigOpen(true)}
               >
-                {/* <Box
-                  style={{
-                    position: "absolute",
-                    top: 20,
-                    left: 10,
-                    width: 80,
-                    height: 32,
-                    zIndex: 9999,
-                    backgroundColor: t.colors.yellow,
-                    borderRadius: 6,
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: "#fff",
-                    }}
-                    fontWeight='600'
-                  >
-                    NOVO
-                  </Text>
-                </Box> */}
                 <MotiImage
                   source={{ uri: bigEvent[0].imageurl }}
                   style={{
@@ -180,14 +157,6 @@ export const Events = () => {
                 </Text>
               </TouchableOpacity>
             </Box>
-            {/* <ModalMainEvent
-            mainEventUrl={item.imageurl}
-            isVisible={bigEventOpen}
-            mainEventText={item.description}
-            mainEventTitle={item.title}
-            handleClose={() => setBigEventOpen(!bigEventOpen)}
-          /> */}
-
             <Text variant={"medium"} paddingHorizontal={"md"} mt={"xl"}>
               Programação semanal
             </Text>
@@ -207,6 +176,7 @@ export const Events = () => {
                       setSmallOpen(true);
                       return setSelectedEvent(item);
                     }}
+                    activeOpacity={0.6}
                     key={index}
                   >
                     <Box
