@@ -9,7 +9,6 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
-src/lib/supabase.ts
 
 # macOS
 .DS_Store

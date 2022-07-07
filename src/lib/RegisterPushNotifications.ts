@@ -4,6 +4,7 @@ import storage from '@react-native-async-storage/async-storage'
 import * as Notifications from 'expo-notifications'
 import * as Device from 'expo-device'
 
+
 export const registerForPushNotification = async () => {
     //@ts-ignore
     if (Device.isDevice) {
@@ -19,7 +20,7 @@ export const registerForPushNotification = async () => {
         alert("Failed to get push token for push notification!");
         return;
       }
-      const token = (await Notifications.getExpoPushTokenAsync()).data;
+      const token = (await Notifications.getExpoPushTokenAsync({projectId:'7a2b5173-4d85-4539-8431-9de2fc0b0b52'})).data;
   
       const storageToken = await storage.getItem("expopushtoken");
       if (storageToken === null) {

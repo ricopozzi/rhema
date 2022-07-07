@@ -79,11 +79,6 @@ export const Home = () => {
       <StatusBar barStyle='dark-content' />
       <Header pageTitle='Início' />
       {isLoading ? (
-        // <Box
-        //   style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-        // >
-        //   <ActivityIndicator size='large' />
-        // </Box>
         <Loading />
       ) : (
         <ScrollView

@@ -62,6 +62,7 @@ export const SignUp = () => {
         {
           data: {
             user_name: data.name,
+            email: data.email,
           },
         }
       );

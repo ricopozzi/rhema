@@ -16,6 +16,7 @@ import {
 } from "@expo-google-fonts/source-serif-pro";
 import AppLoading from "expo-app-loading";
 import * as SplashScreen from "expo-splash-screen";
+import { useEffect } from "react";
 
 const queryClient = new QueryClient();
 
@@ -23,26 +24,32 @@ export default function App() {
   Notifications.setNotificationHandler({
     handleNotification: async () => ({
       shouldShowAlert: true,
-      shouldPlaySound: false,
+      shouldPlaySound: true,
       shouldSetBadge: false,
     }),
   });
 
-  const [fontsLoaded] = useFonts({
-    Poppins_400Regular,
-    Poppins_300Light_Italic,
-    Poppins_600SemiBold,
-    Poppins_400Regular_Italic,
-    SourceSerifPro_300Light,
-    SourceSerifPro_300Light_Italic,
-    SourceSerifPro_400Regular,
-  });
+  useEffect(() => {
+    (async () => {
+      await SplashScreen.preventAutoHideAsync();
+    })();
+  }, []);
+
+  // const [fontsLoaded] = useFonts({
+  //   Poppins_400Regular,
+  //   Poppins_300Light_Italic,
+  //   Poppins_600SemiBold,
+  //   Poppins_400Regular_Italic,
+  //   SourceSerifPro_300Light,
+  //   SourceSerifPro_300Light_Italic,
+  //   SourceSerifPro_400Regular,
+  // });
   // if (!fontsLoaded) {
   //   return <AppLoading />;
   // }
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
+  // if (!fontsLoaded) {
+  //   return <AppLoading />;
+  // }
 
   return (
     <QueryClientProvider client={queryClient}>

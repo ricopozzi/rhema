@@ -1,16 +1,7 @@
-import React, {
-  useState,
-  useEffect,
-  useContext,
-  useRef,
-  useCallback,
-  useMemo,
-} from "react";
+import React, { useState, useContext } from "react";
 import { Dimensions, FlatList, Pressable, SafeAreaView } from "react-native";
 import { useTheme } from "@shopify/restyle";
 import { Theme } from "../styles/light";
-import Box from "../components/Box";
-import Text from "../components/Text";
 import { useQuery } from "react-query";
 import { Header } from "../components/Header/Header";
 import { Book } from "../components/Book";
@@ -49,6 +40,7 @@ export function Bible() {
 
   const renderItem = ({ item }: any) => (
     <Book
+      key={`${Math.random()}-${item.abbrev}`}
       title={item.name}
       chapters={item.chapters}
       abbrev={item.abbrev}
